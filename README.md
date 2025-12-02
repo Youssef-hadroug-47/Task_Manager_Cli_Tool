@@ -1,3 +1,12 @@
 ## Task Manager Cli Tool
 
-Available Commands 
+#tasks 
+
+**Available Commands**
+*add
+*rm
+*show
+*done
+*prog
+
+
