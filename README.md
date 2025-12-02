@@ -1,8 +1,8 @@
 # Task Manager Cli Tool
 
-### tasks 
+### Main command tasks 
 
-**Available Commands**
+**Available Commands :**
 * add
 * rm
 * show
