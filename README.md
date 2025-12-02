@@ -1,6 +1,6 @@
-## Task Manager Cli Tool
+# Task Manager Cli Tool
 
-# tasks 
+### tasks 
 
 **Available Commands**
 * add
