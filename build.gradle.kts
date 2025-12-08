@@ -8,6 +8,7 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+    id ("java")
 }
 
 repositories {
@@ -16,13 +17,11 @@ repositories {
 }
 
 dependencies {
-    // Use JUnit Jupiter for testing.
-    testImplementation(libs.junit.jupiter)
 
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     // This dependency is used by the application.
     implementation(libs.guava)
+    implementation ("com.github.cliftonlabs:json-simple:3.1.0")       
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -34,7 +33,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "org.example.App"
+    mainClass = "src.main.java.Shell"
 }
 
 tasks.named<Test>("test") {
