@@ -5,6 +5,7 @@ enum Status {
     InProgress,
     Done
 }
+
 public class Task {
 
     ///////////////////attributes///////////////////////////////////

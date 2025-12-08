@@ -1,8 +1,9 @@
 package storage;
 import java.io.File;
 import java.io.IOException;
-import org.json.simple.JsonObject;
+//import org.json.simple.JsonObject;
 import java.io.FileWriter;
+
 public class Storage {
     File storage = new File("app/src/main/resources/storage.json"); 
     
@@ -19,7 +20,7 @@ public class Storage {
     }
     ////commands/////////
     public void add(Task task){
-        JsonObject obj = new JsonObject();
+        //JsonObject obj = new JsonObject();
     }
     public void remove(Task task){
         
