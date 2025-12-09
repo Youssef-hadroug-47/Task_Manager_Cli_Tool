@@ -18,7 +18,13 @@ public class Storage {
     ////////////methods//////////////////////
     /////constructors//////
     public Storage(){
-        storage = new File("src/main/ressources/storage.json");
+        try{
+            storage = new File("src/main/ressources/storage.json");
+        }
+        catch (Exception e){
+            System.out.println("Project structure corrupted !!");
+            System.out.println(e.toString());
+        }
         try{
             if( storage.createNewFile()){
                 System.out.println("File created successfully !");
@@ -26,14 +32,12 @@ public class Storage {
             else{
                 if (storage.length()==0)
                 {
-                    try {
-                    JSONArray arrayObj= new JSONArray();
-                    FileWriter newFile = new FileWriter(storage);
-                    newFile.write(arrayObj.toJSONString());
-                    newFile.close();
+                    try ( FileWriter newFile = new FileWriter(storage)){
+                        JSONArray arrayObj= new JSONArray();
+                        newFile.write(arrayObj.toJSONString());
                     }
                     catch (IOException e){
-                        e.printStackTrace();
+                        System.out.println(e.toString());
                     }
                 }
                 System.out.println("File already created !");
@@ -41,7 +45,7 @@ public class Storage {
         }
         catch (IOException e){
             System.out.println("An error just occured");
-            e.printStackTrace();
+            System.out.println(e.toString());
         }
     }
     /////methods i need ////////
@@ -62,51 +66,43 @@ public class Storage {
     public void add(Task task){
         JSONObject taskObj = taskToJsonObject(task) ;
         JSONParser parserObject = new JSONParser();
-        try{
-            FileReader JsonFile = new FileReader(storage);
+        try( FileReader JsonFile = new FileReader(storage)){
             Object obj = parserObject.parse(JsonFile);
-            try {
+            try(FileWriter newFile = new FileWriter(storage)){
                 JSONArray arrayObject = (JSONArray)obj ;
                 arrayObject.add(taskObj);
-                FileWriter newFile = new FileWriter(storage);
                 newFile.write(arrayObject.toJSONString());
-                newFile.close();
             }
             catch (Exception e) {
-                if (e instanceof IOException){
-                    e.printStackTrace();
-                }
                 System.out.println("error of json format ! ");
                 System.out.println("check storage.json format !");
+                System.out.println(e.toString());
             }
         }
-        catch(IOException | ParseException e){
-            e.printStackTrace();
+        catch(Exception e){
+            System.out.println("An error just occured !! ");
+            System.out.println(e.toString());
         }
     }
     public void remove(Task task){
         JSONObject taskObj = taskToJsonObject(task);
         JSONParser objParser = new JSONParser();
-        try {
-          FileReader file = new FileReader(storage);
-          Object obj = objParser.parse(file);
-          try{
-            JSONArray arrayObj = (JSONArray)obj;
-            arrayObj.remove(taskObj);
-            FileWriter newFile = new FileWriter(storage);
-            newFile.write(arrayObj.toJSONString());
-            newFile.close();
-          }
-          catch (Exception e){
-                if (e instanceof IOException){
-                    e.printStackTrace();
-                }
+        try ( FileReader file = new FileReader(storage)){
+            Object obj = objParser.parse(file);
+            try(FileWriter newFile = new FileWriter(storage)){
+                JSONArray arrayObj = (JSONArray)obj;
+                arrayObj.remove(taskObj);
+                newFile.write(arrayObj.toJSONString());
+            }
+            catch (Exception e){
                 System.out.println("error of json format ! ");
                 System.out.println("check storage.json format !");
+                System.out.println(e.toString());
           }
        }
-       catch(IOException | ParseException e){
-            e.printStackTrace();
+       catch(Exception e){
+            System.out.println("An error just occured !!");
+            System.out.println(e.toString());
        }
     }
     public void edit(Task task , String description){}
