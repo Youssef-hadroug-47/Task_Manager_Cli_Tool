@@ -1,4 +1,4 @@
-package commands ;
+package exceptions ;
 
 
 public class CommandException extends Exception{

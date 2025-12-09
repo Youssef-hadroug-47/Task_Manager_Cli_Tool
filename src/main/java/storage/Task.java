@@ -29,7 +29,7 @@ public class Task {
     public Task(String description ){
         id ++;
         status =Status.Todo;
-        description=description;
+        this.description=description;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         createdAt=LocalDateTime.now().format(formatter);
         updatedAt=createdAt;
