@@ -19,7 +19,7 @@ public class Parser {
         MainCommand= "";
         ParsedArguments= new ArrayList<String>(); 
     }
-    //parsing commandline 
+    //validating commands arguments  
     private void validAdd() throws InvalidArgumentsException {
         if (args.length != 2)
             throw new InvalidArgumentsException();
@@ -32,7 +32,6 @@ public class Parser {
         if (parsedId < 0)
             throw new InvalidArgumentsException(args[1]);
         ParsedArguments.add(args[1]);
-        
     }
     private void validLs() throws InvalidArgumentsException {
         if (args.length!=1)
@@ -53,6 +52,9 @@ public class Parser {
         ParsedArguments.add(args[1]);
         ParsedArguments.add(args[2]);
     }
+
+
+
     private void validArguments(String cmd) throws InvalidArgumentsException{
         switch (cmd) {
             case "add" :
