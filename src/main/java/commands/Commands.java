@@ -1,4 +1,5 @@
 package commands ;
+
 public enum Commands {
     add,
     rm,

@@ -8,7 +8,7 @@ import exceptions.*;
 public class Parser {
     
     private String[] args ;
-    private String MainCommand;
+    private Commands MainCommand;
     private List<String> ParsedArguments ;
 
     //Constructor 
@@ -16,9 +16,13 @@ public class Parser {
         if (args==null || args.length==0)
             throw new InvalidCommandException();
         this.args= args;
-        MainCommand= "";
+        MainCommand= null;
         ParsedArguments= new ArrayList<String>(); 
     }
+
+
+
+
     //validating commands arguments  
     private void validAdd() throws InvalidArgumentsException {
         if (args.length != 2)
@@ -80,7 +84,7 @@ public class Parser {
     private void CommandCheck(String command) throws InvalidCommandException{
         for (Commands arg : Commands.values())
             if (arg.toString().equals(command)){
-                MainCommand = arg.toString();
+                MainCommand = arg;
                 return ;
             }
 
@@ -89,9 +93,11 @@ public class Parser {
     
     public void parse() throws CommandException {
         CommandCheck(args[0]);
-        validArguments(MainCommand);
+        validArguments(MainCommand.toString());
     }
+    
+
     public List<String> getArgs(){return new ArrayList<>(ParsedArguments);}
-    public String getCommand(){return MainCommand;}
+    public Commands getCommand(){return MainCommand;}
     
 }

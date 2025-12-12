@@ -50,6 +50,7 @@ public class Storage {
     }
     /////methods i need ////////
     private JSONObject taskToJsonObject(Task task){
+
         Map<String,String> taskMap = new HashMap<String,String>(Map.of(
                 "id",String.valueOf(task.getId()),
                 "description", task.getDescription(),
@@ -57,15 +58,44 @@ public class Storage {
                 "date_of_creation " , task.getCreatedAt(),
                 "date_of_update  " , task.getUpdateAt()
                     )); 
-         JSONObject taskObj = new JSONObject(taskMap);
+         
+        JSONObject taskObj = new JSONObject(taskMap);
 
         return taskObj;
+    }
+    private JSONObject idToJsonobject(int id){
+        JSONParser parserObject = new JSONParser();
+        JSONObject return_obj = null;
+        
+        try (FileReader JsonFile = new FileReader(storage)){
+            Object obj = parserObject.parse(JsonFile);
+            JSONArray arrayObject = (JSONArray)obj;
+
+            for (Object o : arrayObject){
+                JSONObject jo = (JSONObject) o;
+                
+
+                if (jo.get("id")==Integer.toString(id)){
+                    return_obj = jo;
+                    break;
+                }
+            }
+        }
+        catch (Exception e){
+            System.out.println("An error just occured !! ");
+            System.out.println(e.toString());
+        }
+
+
+        return return_obj;
     }
     ////commands/////////
 
     public void add(Task task){
+        
         JSONObject taskObj = taskToJsonObject(task) ;
         JSONParser parserObject = new JSONParser();
+        
         try( FileReader JsonFile = new FileReader(storage)){
             Object obj = parserObject.parse(JsonFile);
             try(FileWriter newFile = new FileWriter(storage)){
@@ -84,16 +114,19 @@ public class Storage {
             System.out.println(e.toString());
         }
     }
-    public void remove(Task task){
-        JSONObject taskObj = taskToJsonObject(task);
+    public void remove(int id ){
+        JSONObject taskObj = idToJsonobject(id);
         JSONParser objParser = new JSONParser();
+        
         try ( FileReader file = new FileReader(storage)){
             Object obj = objParser.parse(file);
+            
             try(FileWriter newFile = new FileWriter(storage)){
                 JSONArray arrayObj = (JSONArray)obj;
                 arrayObj.remove(taskObj);
                 newFile.write(arrayObj.toJSONString());
             }
+
             catch (Exception e){
                 System.out.println("error of json format ! ");
                 System.out.println("check storage.json format !");
@@ -105,16 +138,16 @@ public class Storage {
             System.out.println(e.toString());
        }
     }
-    public void edit(Task task , String description){}
-    public void List__all(){}
-    public void List__Today(){}
+    public void edit(int id , String description){}
+    public void List__Todo(){}
     public void List__INPROGRESS(){}
     public void List__Done(){}
-    public void List__Todo(){}
+    public void List__all(){}
+    public void List__Today(){}
     public void List__ThisWeek(){}
     public void List__d(){} //list tasks for a specific date 
-    public void MarkDone(){}
-    public void MarkTodo(){}
-    public void MarkInProgress(){}
+    public void MarkDone(int id){}
+    public void MarkTodo(int id){}
+    public void MarkInProgress(int id){}
     
 }

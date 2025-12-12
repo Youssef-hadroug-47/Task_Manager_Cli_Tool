@@ -10,7 +10,7 @@ enum Status {
 public class Task {
 
     ///////////////////attributes///////////////////////////////////
-    private static short id;
+    private static int id;
     private Status status;
     private String description ;
     private String createdAt;
@@ -35,7 +35,7 @@ public class Task {
         updatedAt=createdAt;
     }
     ////getters/////
-    public short getId(){return id;}
+    public int getId(){return id;}
     public Status getStatus(){return status;}
     public String getDescription(){return description;}
     public String getCreatedAt(){return createdAt;}
