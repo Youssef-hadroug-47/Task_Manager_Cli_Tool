@@ -1,0 +1,2 @@
+#!/bin/bash
+java -jar ~/MyCode/Projects/Java/Task_Manager_Cli_Tool/build/libs/Task_Manager_Cli_Tool-all.jar "$@"
