@@ -14,14 +14,14 @@ public class Shell {
         try { 
             parser = new Parser(args);
             parser.parse();
+            Commands command = parser.getCommand();
+            List<String> Arguments = parser.getArgs();
+            CommandFactory commandFactory = new CommandFactory(Arguments, command, myStorage);
+            commandFactory.commandGenerator();
         }
         catch (CommandException e){
             System.out.println("An error is caught !!");
             System.out.println(e.toString());
         }
-        Commands command = parser.getCommand();
-        List<String> Arguments = parser.getArgs();
-        CommandFactory commandFactory = new CommandFactory(Arguments, command, myStorage);
-        commandFactory.commandGenerator();
     }
 }

@@ -19,7 +19,7 @@ public class Storage {
     /////constructors//////
     public Storage(){
         try{
-            storage = new File("src/main/ressources/storage.json");
+            storage = new File("src/main/resources/storage.json");
         }
         catch (Exception e){
             System.out.println("Project structure corrupted !!");

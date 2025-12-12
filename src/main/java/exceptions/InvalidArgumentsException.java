@@ -2,7 +2,7 @@ package exceptions;
 
 public class InvalidArgumentsException extends CommandException{
     public InvalidArgumentsException(){
-       super(){}
+       super();
        System.out.println("Invalid argument !");
     }
     public InvalidArgumentsException(String message){
