@@ -20,7 +20,6 @@ public class Shell {
             commandFactory.commandGenerator();
         }
         catch (CommandException e){
-            System.out.println("An error is caught !!");
             System.out.println(e.toString());
         }
     }

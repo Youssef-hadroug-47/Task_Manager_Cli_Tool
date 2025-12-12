@@ -19,17 +19,9 @@ public class Storage {
     /////constructors//////
     public Storage(){
         try{
-            storage = new File("src/main/resources/storage.json");
-        }
-        catch (Exception e){
-            System.out.println("Project structure corrupted !!");
-            System.out.println(e.toString());
-        }
-        try{
-            if( storage.createNewFile()){
-                System.out.println("File created successfully !");
-            }
-            else{
+            String userHome = System.getProperty("user.home");
+            storage = new File(userHome + "/MyCode/Projects/Java/Task_Manager_Cli_Tool/src/main/resources/storage.json");
+            if(!storage.createNewFile()){
                 if (storage.length()==0)
                 {
                     try ( FileWriter newFile = new FileWriter(storage)){
@@ -39,14 +31,24 @@ public class Storage {
                     catch (IOException e){
                         System.out.println(e.toString());
                     }
-                }
-                System.out.println("File already created !");
+                } 
             }
+            else{
+                try ( FileWriter newFile = new FileWriter(storage)){
+                        JSONArray arrayObj= new JSONArray();
+                        newFile.write(arrayObj.toJSONString());
+                }
+                catch (IOException e){
+                    System.out.println(e.toString());
+                }
+            }
+            
         }
-        catch (IOException e){
-            System.out.println("An error just occured");
+        catch (Exception e){
+            System.out.println("Project structure corrupted !!");
             System.out.println(e.toString());
         }
+        
     }
     /////methods i need ////////
     private JSONObject taskToJsonObject(Task task){
