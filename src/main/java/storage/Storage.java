@@ -51,7 +51,7 @@ public class Storage {
         
     }
     /////methods i need ////////
-    protected JSONArray openJson(){
+    public JSONArray openJson(){
         JSONParser parser = new JSONParser();
         JSONArray arr=null;
 
@@ -82,7 +82,6 @@ public class Storage {
     }
     protected JSONObject idToJsonobject(int id){
         JSONParser parserObject = new JSONParser();
-        JSONObject return_obj = null;
         
         try (FileReader JsonFile = new FileReader(storage)){
             Object obj = parserObject.parse(JsonFile);
@@ -92,9 +91,8 @@ public class Storage {
                 JSONObject jo = (JSONObject) o;
                 
 
-                if (jo.get("id")==Integer.toString(id)){
-                    return_obj = jo;
-                    break;
+                if (jo.get("id").toString().equals(Integer.toString(id))){
+                    return jo;
                 }
             }
         }
@@ -104,7 +102,7 @@ public class Storage {
         }
 
 
-        return return_obj;
+        return null;
     }
     public File getFile(){return storage;}
     ////commands/////////

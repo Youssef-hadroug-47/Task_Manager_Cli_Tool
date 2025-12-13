@@ -1,6 +1,12 @@
 package storage ;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import storage.Storage;
+
 enum Status {
     Todo,
     InProgress,
@@ -10,7 +16,7 @@ enum Status {
 public class Task {
 
     ///////////////////attributes///////////////////////////////////
-    private static int id;
+    private int id;
     private Status status;
     private String description ;
     private String createdAt;
@@ -18,16 +24,18 @@ public class Task {
     
     //////////////////methods/////////////////////////////////////
     ///constructors////
-    public Task(){
-        id ++;
-        status=Status.Todo;
-        description="";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        createdAt=LocalDateTime.now().format(formatter);
-        updatedAt=createdAt;
-    }
     public Task(String description ){
-        id ++;
+        Storage st = new Storage();
+        JSONArray arr = st.openJson();
+
+        if (arr.size()==0)
+            id =0;
+        else {
+            JSONObject lastElement = (JSONObject)arr.getLast();
+            String id_string = lastElement.get("id").toString();
+            id = Integer.parseInt(id_string)+1;
+        }
+ 
         status =Status.Todo;
         this.description=description;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
