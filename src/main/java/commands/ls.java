@@ -26,15 +26,7 @@ public class ls extends Storage {
         }
 
     }
-    public void List__all(Printer p ){
-        JSONArray arr =openJson();
-        if (arr != null){
-            for (Object o : arr){
-                JSONObject oj = (JSONObject) o;        
-                p.printFormat(oj);  
-            }
-        }
-    }
+    
     
 
 }

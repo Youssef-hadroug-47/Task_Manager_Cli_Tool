@@ -24,18 +24,30 @@ public class Parser {
 
 
     //validating commands arguments  
-    private void validAdd() throws InvalidArgumentsException {
+    private void validAdd() throws InvalidArgumentsException, NumberFormatException {
         if (args.length != 2)
             throw new InvalidArgumentsException();
         ParsedArguments.add(args[1]);
     }
     private void validRm() throws InvalidArgumentsException {
-        if (args.length != 2)
+        if (args.length != 2 )
             throw new InvalidArgumentsException();
-        int parsedId = Integer.parseInt(args[1]);
-        if (parsedId < 0)
-            throw new InvalidArgumentsException(args[1]);
-        ParsedArguments.add(args[1]);
+        if ( args[1].equals( "--all" )){
+            ParsedArguments.add("--all");
+            return ;
+        }
+        try {
+            int parsedId = Integer.parseInt(args[1]);
+            
+            if (parsedId < 0)
+                throw new InvalidArgumentsException(args[1]);
+            ParsedArguments.add(args[1]);
+            return ;
+        }
+        catch (NumberFormatException e){
+            throw new InvalidArgumentsException();
+        }
+         
     }
     private void validLs() throws InvalidArgumentsException {
         switch (args.length) {

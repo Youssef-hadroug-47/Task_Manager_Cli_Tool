@@ -26,7 +26,10 @@ public class CommandFactory {
                 break;
             case rm :
                 rm rmCommand = new rm(storage);
-                rmCommand.rmCommand (Integer.parseInt(Arguments.get(0)));
+                if (Arguments.get(0).equals("--all"))
+                    rmCommand.rm__all();
+                else 
+                    rmCommand.rmCommand(Integer.parseInt(Arguments.get(0)));
                 break ;
             case ls :
                 ls lsCommand = new ls(storage);
@@ -44,10 +47,10 @@ public class CommandFactory {
                                 p = new MinimalistStylePrinter();
                                 break;
                         } 
-                        lsCommand.List__all(p);
+                        lsCommand.lsCommand(p);
                         break;
                     default:
-                        p = new BoxTaskPrinter();
+                        p = new BadgeStyle();
                         lsCommand.lsCommand(p);
                         break;
                 }

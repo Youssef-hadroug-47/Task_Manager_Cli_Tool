@@ -56,5 +56,13 @@ public class rm extends Storage {
        }
 
     }
+    public void rm__all()  {
+        try(FileWriter f = new FileWriter(storage,false)){
+        }
+        catch(IOException e){
+            System.out.println("error !!");
+            System.out.println(e.toString());
+        }
+    }
 
 }
