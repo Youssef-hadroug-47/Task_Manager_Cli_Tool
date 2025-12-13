@@ -3,7 +3,7 @@ package commandFactory;
 import commands.*;
 import storage.*;
 import java.util.List;
-
+import taskPrinter.*;
 
 
 public class CommandFactory {
@@ -30,12 +30,25 @@ public class CommandFactory {
                 break ;
             case ls :
                 ls lsCommand = new ls(storage);
+                Printer p ;
                 switch (Arguments.size()) {
                     case 1:
-                        lsCommand.List__all();
+                        switch (Arguments.get(0)) {
+                            case "--format=badge":
+                                p = new BadgeStyle();
+                                break;
+                            case "--format=box":
+                                p = new BoxTaskPrinter();
+                                break;
+                            default :
+                                p = new MinimalistStylePrinter();
+                                break;
+                        } 
+                        lsCommand.List__all(p);
                         break;
                     default:
-                        lsCommand.lsCommand();
+                        p = new BoxTaskPrinter();
+                        lsCommand.lsCommand(p);
                         break;
                 }
                 break ;
@@ -43,15 +56,14 @@ public class CommandFactory {
                 edit editCommand = new edit(storage);
                 editCommand.editCommand(Integer.parseInt(Arguments.get(0)), Arguments.get(1));
                 break ;
-            case markinp :
-                markinp markinpCommand = new markinp(storage);
-                markinpCommand.markinpCommand(Integer.parseInt(Arguments.get(0)));
+            case mark :
+                mark markCommand = new mark(storage);
+                markCommand.markCommand(Integer.parseInt(Arguments.get(0)),Arguments.get(1));
                 break;
-            case markdone:
-                markdone markdoneCommand = new markdone(storage);
-                markdoneCommand.markdoneCommand(Integer.parseInt(Arguments.get(0)));
+            case null :
+            case help : 
+                help.printHelp();
                 break;
-
         }
     }
 }

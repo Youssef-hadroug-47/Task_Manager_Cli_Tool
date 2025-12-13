@@ -13,7 +13,7 @@ public class Parser {
 
     //Constructor 
     public Parser(String[] args) throws InvalidCommandException{
-        if (args==null || args.length==0)
+        if (args==null)
             throw new InvalidCommandException();
         this.args= args;
         MainCommand= null;
@@ -43,7 +43,7 @@ public class Parser {
                 return ;
             case 2 :
                 switch (args[1]) {
-                    case "-a":
+                    case "--format=box": case "--format=badge" : case "--format=mini":
                         ParsedArguments.add(args[1]);
                         break;
                     default:
@@ -54,11 +54,21 @@ public class Parser {
                 throw new InvalidArgumentsException();
         }
     }
-    private void validMarkdone() throws InvalidArgumentsException {
-        validRm();
-    }
-    private void validMarkinp() throws InvalidArgumentsException {
-        validRm();
+    private void validMark() throws InvalidArgumentsException {
+        if (args.length != 3)
+            throw new InvalidArgumentsException();
+        int parsedId = Integer.parseInt(args[1]);
+        if (parsedId < 0)
+            throw new InvalidArgumentsException(args[1]);
+        ParsedArguments.add(args[1]);
+        switch (args[2]) {
+            case "Todo" :
+            case "Done" :
+            case "InProgress" :
+                ParsedArguments.add(args[2]);
+            default :
+                throw new InvalidArgumentsException(args[2]);
+        }
     }
     private void validEdit() throws InvalidArgumentsException {
         if (args.length!=3)
@@ -68,6 +78,10 @@ public class Parser {
             throw new InvalidArgumentsException(args[1]);
         ParsedArguments.add(args[1]);
         ParsedArguments.add(args[2]);
+    }
+    private void validHelp() throws InvalidArgumentsException{
+        if (args.length!=1)
+            throw new InvalidArgumentsException();
     }
 
 
@@ -83,14 +97,14 @@ public class Parser {
             case "ls" :
                 validLs();
                 break;
-            case "markdone" :
-                validMarkdone();
-                break;
-            case "markinp" : 
-                validMarkinp();
+            case "mark" :
+                validMark();
                 break;
             case "edit" :
                 validEdit();
+                break;
+            case "help" :
+                validHelp();
                 break;
         }
     }
@@ -105,6 +119,8 @@ public class Parser {
     }
     
     public void parse() throws CommandException {
+        if (args.length == 0 )
+            return ;
         CommandCheck(args[0]);
         validArguments(MainCommand.toString());
     }

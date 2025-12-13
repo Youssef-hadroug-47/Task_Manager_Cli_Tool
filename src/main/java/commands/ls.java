@@ -3,40 +3,38 @@ package commands ;
 import storage.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import taskPrinter.TaskPrinter;
 import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
+import taskPrinter.Printer;
 public class ls extends Storage {
     
     public static final Map<String , List<String>> subCommands = new HashMap<>( Map.of(
-
-            "-a" , List.of(),
             "--format" , List.of("box","json","minimal")            
     ));
 
     public ls (Storage st) {
         storage = st.getFile();
     }
-    public void lsCommand () {
+    public void lsCommand (Printer p) {
         JSONArray arr =openJson();
         if (arr != null){
             for (Object o : arr){
                 JSONObject oj = (JSONObject) o;
-
-                System.out.println(oj.get("status")+" : "+oj.get("description"));
+                p.printFormat(oj);
             }
         }
 
     }
-    public void List__all(){
+    public void List__all(Printer p ){
         JSONArray arr =openJson();
         if (arr != null){
             for (Object o : arr){
                 JSONObject oj = (JSONObject) o;        
-                TaskPrinter.print(oj);
+                p.printFormat(oj);  
             }
         }
     }
+    
 
 }

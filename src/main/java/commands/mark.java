@@ -9,18 +9,18 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import storage.*;
 
-public class markdone extends Storage {
+public class mark extends Storage {
+     
+    public mark (Storage st){storage=st.getFile();}
     
-    public markdone (Storage st){storage=st.getFile();}
-
-    public void markdoneCommand(int id){
+    public void markCommand(int id, String status){
         JSONArray arr = openJson();
         boolean test = false ;
         for (Object o : arr) {
             JSONObject jo  = (JSONObject)o;
     
             if (jo.get("id").toString().equals(String.valueOf(id))) {
-                jo.replace("status","Done");
+                jo.replace("status",status);
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
                 jo.replace("date_of_update",LocalDateTime.now().format(formatter));
                 test = true;

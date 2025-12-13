@@ -4,7 +4,7 @@ public enum Commands {
     add,
     rm,
     ls,
-    markdone,
-    markinp,
+    mark,
     edit,
+    help,
 }
