@@ -38,8 +38,21 @@ public class Parser {
         ParsedArguments.add(args[1]);
     }
     private void validLs() throws InvalidArgumentsException {
-        if (args.length!=1)
-            throw new InvalidArgumentsException();
+        switch (args.length) {
+            case 1:
+                return ;
+            case 2 :
+                switch (args[1]) {
+                    case "-a":
+                        ParsedArguments.add(args[1]);
+                        break;
+                    default:
+                        throw new InvalidArgumentsException();
+                } 
+                break;
+            default:
+                throw new InvalidArgumentsException();
+        }
     }
     private void validMarkdone() throws InvalidArgumentsException {
         validRm();

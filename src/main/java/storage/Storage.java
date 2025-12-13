@@ -13,7 +13,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class Storage {
-    File storage ; 
+    protected File storage ; 
     
     ////////////methods//////////////////////
     /////constructors//////
@@ -51,21 +51,36 @@ public class Storage {
         
     }
     /////methods i need ////////
-    private JSONObject taskToJsonObject(Task task){
+    protected JSONArray openJson(){
+        JSONParser parser = new JSONParser();
+        JSONArray arr=null;
+
+        try (FileReader file = new FileReader(storage)){
+            arr = (JSONArray)parser.parse(file);
+        }
+        catch (IOException e){
+            System.out.println(e);
+        }
+        catch (ParseException e){
+            System.out.println(e);
+        }
+        return arr;        
+    }
+    protected JSONObject taskToJsonObject(Task task){
 
         Map<String,String> taskMap = new HashMap<String,String>(Map.of(
                 "id",String.valueOf(task.getId()),
                 "description", task.getDescription(),
                 "status", task.getStatus().toString(),
-                "date_of_creation " , task.getCreatedAt(),
-                "date_of_update  " , task.getUpdateAt()
+                "date_of_creation" , task.getCreatedAt(),
+                "date_of_update" , task.getUpdateAt()
                     )); 
          
         JSONObject taskObj = new JSONObject(taskMap);
 
         return taskObj;
     }
-    private JSONObject idToJsonobject(int id){
+    protected JSONObject idToJsonobject(int id){
         JSONParser parserObject = new JSONParser();
         JSONObject return_obj = null;
         
@@ -91,65 +106,18 @@ public class Storage {
 
         return return_obj;
     }
+    public File getFile(){return storage;}
     ////commands/////////
-
-    public void add(Task task){
-        
-        JSONObject taskObj = taskToJsonObject(task) ;
-        JSONParser parserObject = new JSONParser();
-        
-        try( FileReader JsonFile = new FileReader(storage)){
-            Object obj = parserObject.parse(JsonFile);
-            try(FileWriter newFile = new FileWriter(storage)){
-                JSONArray arrayObject = (JSONArray)obj ;
-                arrayObject.add(taskObj);
-                newFile.write(arrayObject.toJSONString());
-            }
-            catch (Exception e) {
-                System.out.println("error of json format ! ");
-                System.out.println("check storage.json format !");
-                System.out.println(e.toString());
-            }
-        }
-        catch(Exception e){
-            System.out.println("An error just occured !! ");
-            System.out.println(e.toString());
-        }
-    }
-    public void remove(int id ){
-        JSONObject taskObj = idToJsonobject(id);
-        JSONParser objParser = new JSONParser();
-        
-        try ( FileReader file = new FileReader(storage)){
-            Object obj = objParser.parse(file);
-            
-            try(FileWriter newFile = new FileWriter(storage)){
-                JSONArray arrayObj = (JSONArray)obj;
-                arrayObj.remove(taskObj);
-                newFile.write(arrayObj.toJSONString());
-            }
-
-            catch (Exception e){
-                System.out.println("error of json format ! ");
-                System.out.println("check storage.json format !");
-                System.out.println(e.toString());
-          }
-       }
-       catch(Exception e){
-            System.out.println("An error just occured !!");
-            System.out.println(e.toString());
-       }
-    }
     public void edit(int id , String description){}
     public void List__Todo(){}
     public void List__INPROGRESS(){}
     public void List__Done(){}
-    public void List__all(){}
     public void List__Today(){}
     public void List__ThisWeek(){}
     public void List__d(){} //list tasks for a specific date 
     public void MarkDone(int id){}
     public void MarkTodo(int id){}
     public void MarkInProgress(int id){}
+    public void remove_all(){}
     
 }

@@ -30,3 +30,7 @@ replay_pid*
 .settings/
 # Ignore Gradle build output directory
 build
+
+# Ignore the storage file 
+Storage.json
+

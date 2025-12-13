@@ -21,22 +21,35 @@ public class CommandFactory {
 
         switch (c_Command){
             case add : 
-                storage.add(new Task(Arguments.get(0)));
+                add addCommand = new add(storage);
+                addCommand.addCommand(new Task(Arguments.get(0)));
                 break;
             case rm :
-                storage.remove(Integer.parseInt(Arguments.get(0)));
+                rm rmCommand = new rm(storage);
+                rmCommand.rmCommand (Integer.parseInt(Arguments.get(0)));
                 break ;
             case ls :
-                storage.List__all();
+                ls lsCommand = new ls(storage);
+                switch (Arguments.size()) {
+                    case 1:
+                        lsCommand.List__all();
+                        break;
+                    default:
+                        lsCommand.lsCommand();
+                        break;
+                }
                 break ;
             case edit :
-                storage.edit(Integer.parseInt(Arguments.get(0)), Arguments.get(1));
+                edit editCommand = new edit(storage);
+                editCommand.editCommand(Integer.parseInt(Arguments.get(0)), Arguments.get(1));
                 break ;
             case markinp :
-                storage.MarkInProgress(Integer.parseInt(Arguments.get(0)));
+                markinp markinpCommand = new markinp(storage);
+                markinpCommand.markinpCommand(Integer.parseInt(Arguments.get(0)));
                 break;
             case markdone:
-                storage.MarkDone(Integer.parseInt(Arguments.get(0)));
+                markdone markdoneCommand = new markdone(storage);
+                markdoneCommand.markdoneCommand(Integer.parseInt(Arguments.get(0)));
                 break;
 
         }
