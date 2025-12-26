@@ -14,7 +14,7 @@ public class BadgeStyle extends Printer {
         System.out.println();
         System.out.println(YELLOW + BOLD + "  [ID: " + id + "]  " + RESET + getStatusBadge(status));
         System.out.println();
-        System.out.println(GREEN + BOLD + "  " + desc + RESET);
+        System.out.println(GREEN + BOLD + "  " + printDescripiton(new String(desc)) + RESET);
         System.out.println();
         System.out.println(MAGENTA + "  ⏱  " + created + "  →  " + updated + RESET);
         System.out.println();

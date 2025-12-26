@@ -2,6 +2,8 @@ package commandFactory;
 
 import commands.*;
 import storage.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import taskPrinter.*;
 
@@ -22,14 +24,17 @@ public class CommandFactory {
         switch (c_Command){
             case add : 
                 add addCommand = new add(storage);
-                addCommand.addCommand(new Task(Arguments.get(0)));
+                List<Task> tasks = new ArrayList<Task>() ;
+                for (String arg : Arguments)
+                    tasks.add(new Task(arg));
+                addCommand.addCommand(tasks);
                 break;
             case rm :
                 rm rmCommand = new rm(storage);
                 if (Arguments.get(0).equals("--all"))
                     rmCommand.rm__all();
                 else 
-                    rmCommand.rmCommand(Integer.parseInt(Arguments.get(0)));
+                    rmCommand.rmCommand(Arguments);
                 break ;
             case ls :
                 ls lsCommand = new ls(storage);

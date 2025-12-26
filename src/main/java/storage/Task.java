@@ -24,6 +24,7 @@ public class Task {
     
     //////////////////methods/////////////////////////////////////
     ///constructors////
+    public Task(){}
     public Task(String description ){
         Storage st = new Storage();
         JSONArray arr = st.openJson();

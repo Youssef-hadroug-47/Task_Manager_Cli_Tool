@@ -4,8 +4,10 @@ import storage.*;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.List;
 
 
 public class add extends Storage {
@@ -16,15 +18,18 @@ public class add extends Storage {
     
     }
 
-    public void addCommand(Task task){
-        JSONObject taskObj = taskToJsonObject(task) ;
+    public void addCommand(List<Task> tasks){
         JSONParser parserObject = new JSONParser();
         
         try( FileReader JsonFile = new FileReader(storage)){
             Object obj = parserObject.parse(JsonFile);
+
             try(FileWriter newFile = new FileWriter(storage)){
                 JSONArray arrayObject = (JSONArray)obj ;
-                arrayObject.add(taskObj);
+                for (Task task : tasks){
+                    JSONObject taskObj = taskToJsonObject(task) ;
+                    arrayObject.add(taskObj);
+                }
                 newFile.write(arrayObject.toJSONString());
             }
             catch (Exception e) {

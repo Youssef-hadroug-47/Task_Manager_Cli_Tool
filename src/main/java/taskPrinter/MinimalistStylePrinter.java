@@ -12,11 +12,10 @@ public class MinimalistStylePrinter extends Printer {
             
             System.out.println("\n" + CYAN + BOLD + "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" + RESET);
             System.out.println(YELLOW + BOLD + "▸ ID:          " + RESET + YELLOW + id + RESET);
-            System.out.println(GREEN + BOLD + "▸ Description: " + RESET + GREEN + desc + RESET);
+            System.out.println(GREEN + BOLD + "▸ Description: " + RESET + GREEN +printDescripiton(desc) + RESET);
             System.out.println(MAGENTA + BOLD + "▸ Created:     " + RESET + MAGENTA + created + RESET);
             System.out.println(MAGENTA + BOLD + "▸ Updated:     " + RESET + MAGENTA + updated + RESET);
             System.out.println(getStatusColor(status) + BOLD + "▸ Status:      " + RESET + getStatusColor(status) + BOLD + status.toUpperCase() + RESET);
-            System.out.println(CYAN + BOLD + "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" + RESET + "\n");
     }
 
 }

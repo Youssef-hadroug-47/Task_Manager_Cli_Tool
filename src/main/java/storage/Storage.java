@@ -12,7 +12,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class Storage {
+public class Storage extends Task{
     protected File storage ; 
     
     ////////////methods//////////////////////
@@ -105,17 +105,5 @@ public class Storage {
         return null;
     }
     public File getFile(){return storage;}
-    ////commands/////////
-    public void edit(int id , String description){}
-    public void List__Todo(){}
-    public void List__INPROGRESS(){}
-    public void List__Done(){}
-    public void List__Today(){}
-    public void List__ThisWeek(){}
-    public void List__d(){} //list tasks for a specific date 
-    public void MarkDone(int id){}
-    public void MarkTodo(int id){}
-    public void MarkInProgress(int id){}
-    public void remove_all(){}
     
 }

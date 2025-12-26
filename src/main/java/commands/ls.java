@@ -10,7 +10,8 @@ import taskPrinter.Printer;
 public class ls extends Storage {
     
     public static final Map<String , List<String>> subCommands = new HashMap<>( Map.of(
-            "--format" , List.of("box","json","minimal")            
+            "--format" , List.of("box","json","minimal"),            
+            "-s" ,List.of("Done","Todo","InProgress")
     ));
 
     public ls (Storage st) {

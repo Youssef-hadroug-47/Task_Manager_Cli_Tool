@@ -15,7 +15,7 @@ abstract public class Printer {
 
         protected static String getStatusColor(String status) {
 
-            switch (status.toLowerCase()) {
+            switch (status) {
                 case "Done":
                     return GREEN;
                 case "InProgress":
@@ -43,7 +43,22 @@ abstract public class Printer {
                     return "◉";
             }
         }
+        protected static String printDescripiton(String description) {
+            if (description.length() <= 100)    
+                return description;
+            String editedDescription =" ";
+            while(description.length() / 100 != 0){
+                int idx = 100;
+                while(idx != -1 && description.charAt(idx) != ' '){
+                    idx--;
+                }
+                if (idx == -1) idx = 100;
+                editedDescription += description.substring(0, idx)+"\n   ";
+                description = description.substring(idx+1);
+            }
+            if (!description.isEmpty())
+                editedDescription += description;
+            return editedDescription;
+        }
         public abstract void printFormat(JSONObject json);
-
-
 }
