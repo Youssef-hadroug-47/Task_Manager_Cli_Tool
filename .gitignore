@@ -32,5 +32,5 @@ replay_pid*
 build
 
 # Ignore the storage file 
-Storage.json
+src/main/resources/storage.json
 
