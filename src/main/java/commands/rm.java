@@ -9,7 +9,6 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.IOException;
 

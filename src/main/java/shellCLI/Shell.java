@@ -8,10 +8,10 @@ import java.util.List;
 
 import commandFactory.CommandFactory;
 public class Shell {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidArgumentsException , InvalidCommandException{
         Storage myStorage = new Storage();
-        Parser parser = null;
-        try { 
+        try{
+            Parser parser = null;
             parser = new Parser(args);
             parser.parse();
             Commands command = parser.getCommand();
@@ -19,8 +19,8 @@ public class Shell {
             CommandFactory commandFactory = new CommandFactory(Arguments, command, myStorage);
             commandFactory.commandGenerator();
         }
-        catch (CommandException e){
-            System.out.println(e.toString());
+        catch (InvalidCommandException | InvalidArgumentsException e){
+            System.exit(1);
         }
     }
 }

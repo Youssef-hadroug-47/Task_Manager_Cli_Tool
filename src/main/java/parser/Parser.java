@@ -2,6 +2,8 @@ package parser;
 
 import commands.Commands;
 import java.util.List;
+
+
 import java.util.ArrayList;
 import exceptions.*;
 
@@ -29,25 +31,34 @@ public class Parser {
             ParsedArguments.add(args[i]);
     }
     private void validRm() throws InvalidArgumentsException {
-        if ( args[1].equals( "--all" )){
-            if (args.length != 2)
+        switch (args.length){
+            case 1 :
                 throw new InvalidArgumentsException();
-            ParsedArguments.add("--all");
-            return ;
+            case 2 :
+                if ( args[1].equals( "--all" )){
+                    ParsedArguments.add(args[1]);
+                    return ;
+                }
+            case 3 :
+                // Store possible wrong argument to print it 
+                String wrong_argument = null;
+                try {
+                    for ( int i =1; i<args.length ; i++){
+                        wrong_argument = args[i];
+                        int parsedId = Integer.parseInt(args[i]);
+                        
+                        if (parsedId < 0)
+                            throw new InvalidArgumentsException(args[i]);
+                        ParsedArguments.add(args[i]);
+                    }
+                }
+                catch (NumberFormatException e){
+                    throw new InvalidArgumentsException(wrong_argument);
+                }
+                break;
+            default : 
+                throw new InvalidArgumentsException(args[3]);
         }
-        try {
-            for ( int i =1; i<args.length ; i++){
-                int parsedId = Integer.parseInt(args[i]);
-
-                if (parsedId < 0)
-                    throw new InvalidArgumentsException(args[i]);
-                ParsedArguments.add(args[i]);
-            }
-        }
-        catch (NumberFormatException e){
-            throw new InvalidArgumentsException();
-        }
-         
     }
     private void validLs() throws InvalidArgumentsException {
         switch (args.length) {
@@ -59,42 +70,70 @@ public class Parser {
                         ParsedArguments.add(args[1]);
                         break;
                     default:
-                        throw new InvalidArgumentsException();
+                        throw new InvalidArgumentsException(args[1]);
                 } 
                 break;
             default:
-                throw new InvalidArgumentsException();
-        }
-    }
-    private void validMark() throws InvalidArgumentsException {
-        if (args.length != 3)
-            throw new InvalidArgumentsException();
-        int parsedId = Integer.parseInt(args[1]);
-        if (parsedId < 0)
-            throw new InvalidArgumentsException(args[1]);
-        ParsedArguments.add(args[1]);
-        switch (args[2]) {
-            case "Todo" :
-            case "Done" :
-            case "InProgress" :
-                ParsedArguments.add(args[2]);
-                break;
-            default :
                 throw new InvalidArgumentsException(args[2]);
         }
     }
+    private void validMark() throws InvalidArgumentsException {
+
+        switch (args.length){
+            case 1 :
+                throw new InvalidArgumentsException();
+            case 2 :
+                throw new InvalidArgumentsException(args[1]);
+            case 3 : 
+                try {
+                    int parsedId = Integer.parseInt(args[1]);
+                    if (parsedId < 0)
+                        throw new InvalidArgumentsException(args[1]);
+                    ParsedArguments.add(args[1]);
+                }
+                catch (NumberFormatException e){
+                    throw new InvalidArgumentsException(args[1]);
+                }
+
+                switch (args[2]) {
+                    case "todo" :
+                    case "done" :
+                    case "inprogress" :
+                        ParsedArguments.add(args[2]);
+                        break;
+                    default :
+                        throw new InvalidArgumentsException(args[2]);
+                }
+                break;
+            default :
+                throw new InvalidArgumentsException(args[3]);
+        }
+    }
     private void validEdit() throws InvalidArgumentsException {
-        if (args.length!=3)
+        switch(args.length){
+        case 1 :
             throw new InvalidArgumentsException();
-        int parsedId = Integer.parseInt(args[1]);
-        if (parsedId < 0)
+        case 2 :
             throw new InvalidArgumentsException(args[1]);
-        ParsedArguments.add(args[1]);
-        ParsedArguments.add(args[2]);
+        case 3 : 
+            try{
+            int parsedId = Integer.parseInt(args[1]);
+            if (parsedId < 0)
+                throw new InvalidArgumentsException(args[1]);
+            ParsedArguments.add(args[1]);
+            ParsedArguments.add(args[2]);
+            }
+            catch (NumberFormatException e){
+                throw new InvalidArgumentsException(args[1]);
+            }
+            break;
+        default :
+            throw new InvalidArgumentsException(args[3]);
+        }
     }
     private void validHelp() throws InvalidArgumentsException{
-        if (args.length!=1)
-            throw new InvalidArgumentsException();
+        if (args.length > 1)
+            throw new InvalidArgumentsException(args[1]);
     }
 
 
@@ -128,10 +167,10 @@ public class Parser {
                 return ;
             }
 
-        throw new InvalidCommandException();
+        throw new InvalidCommandException(command);
     }
     
-    public void parse() throws CommandException {
+    public void parse() throws InvalidCommandException , InvalidArgumentsException {
         if (args.length == 0 )
             return ;
         CommandCheck(args[0]);

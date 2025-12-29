@@ -1,8 +1,10 @@
 package exceptions;
 
 public class InvalidArgumentsException extends CommandException{
-    public InvalidArgumentsException(){}
+    public InvalidArgumentsException(){
+        System.err.println("Invalid argument:");
+    }
     public InvalidArgumentsException(String message){
-        System.out.println("Invalid argument! : "+message);
+        System.err.println("Invalid argument! : "+message);
     }
 }
