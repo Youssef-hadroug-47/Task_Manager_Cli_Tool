@@ -11,7 +11,7 @@ public class ls extends Storage {
     
     public static final Map<String , List<String>> subCommands = new HashMap<>( Map.of(
             "--format" , List.of("box","json","minimal"),            
-            "-s" ,List.of("Done","Todo","InProgress")
+            "-s" ,List.of("done","todo","inprogress")
     ));
 
     public ls (Storage st) {

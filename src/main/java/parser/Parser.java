@@ -95,11 +95,11 @@ public class Parser {
                     throw new InvalidArgumentsException(args[1]);
                 }
 
-                switch (args[2]) {
+                switch (args[2].toLowerCase()) {
                     case "todo" :
                     case "done" :
                     case "inprogress" :
-                        ParsedArguments.add(args[2]);
+                        ParsedArguments.add(args[2].toLowerCase());
                         break;
                     default :
                         throw new InvalidArgumentsException(args[2]);

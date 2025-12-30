@@ -12,9 +12,9 @@ public class BoxTaskPrinter extends Printer {
         String taskStatus = task.get("status").toString();
 
         String statusColor = switch (taskStatus) {
-            case "Done" -> GREEN;
-            case "InProgress" -> YELLOW;
-            case "Todo" -> RED;
+            case "done" -> GREEN;
+            case "inprogress" -> YELLOW;
+            case "todo" -> RED;
             default -> RESET;
         };
 

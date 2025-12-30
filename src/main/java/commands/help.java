@@ -92,7 +92,7 @@ public class help {
             "mark <task_id> <status>",
             "Change a task status",
             new String[][]{
-                {"status = [ Done | Todo | InProg ]",""}
+                {"status = [ done | todo | inprogress ]",""}
             }
         );
 

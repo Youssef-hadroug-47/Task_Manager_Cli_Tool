@@ -12,11 +12,10 @@ public class BadgeStyle extends Printer {
         String status = json.get("status").toString();
         
         System.out.println();
-        System.out.println(YELLOW + BOLD + "  [ID: " + id + "]  " + RESET + getStatusBadge(status));
+        System.out.print(YELLOW + BOLD + "  [ID: " + id + "]  " + RESET + getStatusBadge(status) + "   ");
+        System.out.println( "  ⏱  " + created + "  →  " + updated );
         System.out.println();
         System.out.println(GREEN + BOLD + "  " + printDescripiton(new String(desc)) + RESET);
-        System.out.println();
-        System.out.println(MAGENTA + "  ⏱  " + created + "  →  " + updated + RESET);
         System.out.println();
     }
 

@@ -8,9 +8,9 @@ import org.json.simple.JSONObject;
 import storage.Storage;
 
 enum Status {
-    Todo,
-    InProgress,
-    Done
+    todo,
+    inprogress,
+    done
 }
 
 public class Task {
@@ -37,7 +37,7 @@ public class Task {
             id = Integer.parseInt(id_string)+1;
         }
  
-        status =Status.Todo;
+        status =Status.todo;
         this.description=description;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         createdAt=LocalDateTime.now().format(formatter);

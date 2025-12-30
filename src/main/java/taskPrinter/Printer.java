@@ -16,11 +16,11 @@ abstract public class Printer {
         protected static String getStatusColor(String status) {
 
             switch (status) {
-                case "Done":
+                case "done":
                     return GREEN;
-                case "InProgress":
+                case "inprogress":
                     return YELLOW;
-                case "Todo":
+                case "todo":
                     return RED;
                 default:
                     return BLUE;
@@ -33,11 +33,11 @@ abstract public class Printer {
         }
         protected static String getStatusIcon(String status) {
             switch (status) {
-                case "Done":
+                case "done":
                     return "✓";
-                case "InProgress":
+                case "inprogress":
                     return "⟳";
-                case "Todo":
+                case "todo":
                     return "✗";
                 default:
                     return "◉";
